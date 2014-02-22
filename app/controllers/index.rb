@@ -20,6 +20,8 @@ get '/users/login' do
 end
 
 post '/users/login' do
+  user = User.find_by_name(params[:name])
+  session[:id] = user.id
 end
 
 get '/select_deck' do
