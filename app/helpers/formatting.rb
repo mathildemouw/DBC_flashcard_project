@@ -3,3 +3,6 @@ helpers do
     "<em>#{text}</em>"
   end
 end
+
+def logged_in?
+end
