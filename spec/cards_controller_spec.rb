@@ -17,6 +17,11 @@ describe 'cards controller' do
     expect(last_response.redirect?).to be_true
   end
 
+  it "should NOT redirect if the answer is NOT right" do
+    get "/cards/#{@card.id}", answer: "Stephen rocks"
+    expect(last_response.redirect?).to be_false
+  end
+
   after do
     Card.all.each { |card| Card.find(card.id).destroy }
   end
