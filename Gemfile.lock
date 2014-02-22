@@ -15,6 +15,7 @@ GEM
     arel (3.0.2)
     backports (3.3.3)
     builder (3.0.4)
+    cool_faker (0.0.3)
     daemons (1.1.9)
     diff-lcs (1.2.4)
     eventmachine (1.0.3)
@@ -67,6 +68,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activesupport
+  cool_faker
   factory_girl
   faker
   pg
