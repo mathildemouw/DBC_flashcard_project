@@ -1,0 +1,11 @@
+<h3><a href="/">If you want to leave, click me</a></h3>
+<% if @alert %>
+  <%= @alert %>
+<% end %>
+
+<form action="/question/<%=@card.id%>" method="post">
+  Here's the next question<br>
+  Question: <br> <input type="text" value= "<%=@card.question%>" readonly="readonly"><br><br>
+  The answer is...: <br><input name="answer" type="text" value= "">
+    <input type="submit" value="Submit">
+</form>
