@@ -7,7 +7,7 @@ get '/cards/:id' do
   @card = Card.find(params[:id])
 
   if params[:answer].nil?
-    @alert = ""
+    @alert = params[:alert]
 
   elsif params[:answer] == @card.answer
     @alert = "You are right"
@@ -18,5 +18,5 @@ get '/cards/:id' do
     @alert = "#{params[:answer]} is incorrect. Shame on you and your family."
   end
 
-  erb :question
+  erb :cards
 end
