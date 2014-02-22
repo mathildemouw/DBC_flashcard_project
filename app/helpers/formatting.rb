@@ -4,5 +4,3 @@ helpers do
   end
 end
 
-def logged_in?
-end
