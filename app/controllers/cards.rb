@@ -4,6 +4,7 @@ get '/cards' do
 end
 
 get '/cards/:id' do
+  redirect '/users/login' unless logged_in?
   @card = Card.find(params[:id])
 
   if params[:answer].nil?

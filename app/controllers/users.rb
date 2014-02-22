@@ -17,8 +17,13 @@ end
 
 post '/users/login' do
   @user = User.find_by_name(params[:name])
-  session[:id] = @user.id if @user && (params[:password] == @user.password)
+  redirect '/users/login' unless @user
+  params[:password] == @user.password if session[:id] = @user.id
+
   redirect '/'
 end
 
-#
+post '/users/logout' do
+  session.clear
+  redirect '/'
+end
