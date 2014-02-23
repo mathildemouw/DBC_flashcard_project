@@ -1,0 +1,16 @@
+<h3><a href="/">Main Menu</a></h3>
+<% if @alert %>
+  <h2><%= @alert %></h2>
+<% end %>
+<div class="container">
+  <form action="/cards/<%=@card.id%>" method="get">
+    Here's the next question<br>
+    Question: <br>
+    <input type="text" value= "<%=@card.question%>" readonly="readonly">
+    <br><br>
+    Your answer is...:
+    <br>
+    <input name="answer" type="text" value="">
+    <input type="submit" value="Submit">
+  </form>
+</div>

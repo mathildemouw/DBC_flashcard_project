@@ -1,19 +1,18 @@
+def right_answer?(card, answer)
+  return card.answer == answer
+end
+
 get '/' do
-  # Look in app/views/index.erb
+
   erb :index
 end
 
-
-get '/sign_up' do
-  #mathilde
-end
-
-get '/log_in' do
-end
-
 get '/select_deck' do
+  redirect '/users/login' unless logged_in?
   erb :select_deck
 end
 
-get '/play/deck:id' do
+get '/play' do
+  @cards = Card.all
+  erb :play
 end
