@@ -49,7 +49,8 @@ module AlertCreator
 
   class AnswerAlert < Alert
     def initialize card, params
-      answer = params[:answer]
+      p card
+      answer = params["answer"]
       if answer == card.answer
         result = "right"
       else

@@ -3,14 +3,16 @@
   <h2><%= @alert %></h2>
 <% end %>
 <div class="container">
-  <form action="/cards/<%=@card.id%>" method="post">
+  <form action="/deck/<%=@deck.id%>/cards/<%=@card.id%>" method="post">
     Here's the next question<br>
     Question: <br>
-    <input type="text" value= "<%=@card.question%>" readonly="readonly">
+    <!-- <input type="text" value= "<%=@card.question%>" readonly="readonly"> -->
+    <h4><%=@card.question%></h4>
     <br><br>
     Your answer is...:
     <br>
     <input name="answer" type="text" value="">
-    <input type="submit" value="Submit">
+    <button type="submit" >Submit</button>
+    <button type="submit" name="next" >Next</button>
   </form>
 </div>
