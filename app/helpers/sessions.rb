@@ -6,4 +6,8 @@ helpers do
   def log_in(id)
     session[:id] = id
   end
+
+  def current_user
+    User.find(session[:id])
+  end
 end

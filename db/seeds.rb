@@ -12,6 +12,7 @@ Card.create(question: "*insert meow here*", answer: "Rao Rao"),
 Card.create(question: "Sweet awesomeness", answer: "Shadi"),
 Card.create(question: "Led Zepplin", answer: "Phil"),
 Card.create(question: "Apparently a god of pool", answer: "Sherif"),
+<<<<<<< HEAD
 Card.create(question: "Thinks farting is hilarious", answer: "Armando"),
 Card.create(question: "Our home", answer: "Dev Bootcamp"),
 Card.create(question: "Cookie Monster", answer: "Quentin"),
@@ -25,6 +26,9 @@ Card.create(question: "Secretly loves country music", answer:"Jamie"),
 Card.create(question: "Gives the best Lightning talks ever", answer:"Jamie"),
 Card.create(question: "Meatballs...", answer:"Chris")
 ])
+=======
+Card.create(question: "Thinks farting is hilarious", answer: "Armando")])
+>>>>>>> Add current_user helper method, change session clear to delete id
 
 
 Deck.create(name: "Urban Dictionary Trivia", cards: [Card.create(question: "you only live once, might as well make it tasty", answer: "yolowmit"),
