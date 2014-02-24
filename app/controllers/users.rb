@@ -11,7 +11,6 @@ post '/users' do
 end
 
 get '/users/login' do
-
   erb :login
 end
 

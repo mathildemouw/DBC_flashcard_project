@@ -1,7 +1,7 @@
-get '/cards' do
-  id = Card.all.sample.id
-  redirect "/cards/#{id}"
-end
+# get '/cards' do
+#   @decks = Deck.all
+#   redirect to "/cards/#{@decks}"
+# end
 
 get '/cards/:id' do
   redirect '/users/login' unless logged_in?
@@ -12,7 +12,7 @@ get '/cards/:id' do
 
   elsif params[:answer] == @card.answer
     @alert = "You are right"
-    @card = Card.all.sample
+    @card = @card.deck.cards.sample
     redirect "/cards/#{@card.id}?alert=#{@alert}"
 
   else

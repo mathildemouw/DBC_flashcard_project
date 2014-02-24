@@ -7,12 +7,8 @@ get '/' do
   erb :index
 end
 
-get '/select_deck' do
-  redirect '/users/login' unless logged_in?
-  erb :select_deck
-end
 
-get '/play' do
-  @cards = Card.all
-  erb :play
-end
+# get '/play' do
+#   @cards = Card.all
+#   erb :play
+# end
