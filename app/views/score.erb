@@ -1,7 +1,20 @@
-<div class="container">
-  <h2> Hello <%= current_user.name %>! </h2>
-  <p>Here are your scores...</p>
-  <div class="scoreboard">
+  <h2> Hey <%= current_user.name %>! </h2>
+  <p>Your current score for this deck is:</p>
+  <%= current_user.scores.find_by_deck_id(@card.deck.id) %>
+   <p> Wow!</p>
 
-  </div>
-</div>
+
+<%
+#handling incrementing score:
+#
+# @score = Score.find_by_user_id_and_desk_id(#current_user.id, @card.deck).nil?
+# @score.correct_answer += 1
+# @score.save!
+#
+#
+#handling creating/showing score:
+#
+#if Score.find_by_user_id_and_desk_id(#current_user.id, @card.deck).nil?
+#Score.create(user_id: current_user.id, #deck_id: @card.deck)
+#end
+%>

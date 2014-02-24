@@ -1,8 +1,8 @@
 class CreateScores < ActiveRecord::Migration
   def change
     create_table :scores do |t|
-      t.belongs_to :users
-      t.belongs_to :decks
+      t.belongs_to :user
+      t.belongs_to :deck
       t.integer :correct_answers, default: 0
 
       t.timestamps

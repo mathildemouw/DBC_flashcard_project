@@ -11,3 +11,24 @@ post '/cards/:id' do
   @alert = AlertCreator.create(:answer, @card, params).message
   redirect "/cards/#{@card.id.to_s + '?alert=' + @alert if @alert}"
 end
+
+
+  if params[:answer].nil?
+    @alert = params[:alert]
+
+  elsif params[:answer] == @card.answer
+    @alert = "You are right"
+    @card = @card.deck.cards.sample
+    current_deck = @card.deck
+    @score = current_user.scores.find_by_deck_id(current_deck.id)
+    @score.correct_answers += 1
+    @score.save!
+
+    redirect "/cards/#{@card.id}?alert=#{@alert}"
+
+  else
+    @alert = "#{params[:answer]} is incorrect. Shame on you and your family."
+  end
+
+  erb :cards
+end

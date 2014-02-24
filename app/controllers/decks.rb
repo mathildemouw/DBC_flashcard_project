@@ -32,4 +32,12 @@ post '/deck/:deck_id/cards/:id' do
   @card = Card.find(params[:id])
   @alert = AlertCreator.create(:answer, @card, params).message
   redirect "/deck/#{params[:deck_id]}/cards/#{@card.id.to_s + '?alert=' + @alert if @alert}"
+
+get '/deck/:id' do
+  @deck =  Deck.find(params[:id])
+  @cards = @deck.cards
+  @card = @cards.sample
+  @deck.scores.find_by_user_id(current_user.id) || Score.create!(user_id: current_user.id, deck_id: @deck.id)
+  # p @deck.users(current_user).scores
+  redirect to "/cards/#{@card.id}"
 end
