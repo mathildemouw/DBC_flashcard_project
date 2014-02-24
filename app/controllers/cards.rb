@@ -1,23 +1,22 @@
-# get '/cards' do
-#   @decks = Deck.all
-#   redirect to "/cards/#{@decks}"
-# end
-
 get '/cards/:id' do
   redirect '/users/login' unless logged_in?
   @card = Card.find(params[:id])
-
-  if params[:answer].nil?
-    @alert = params[:alert]
-
-  elsif params[:answer] == @card.answer
-    @alert = "You are right"
-    @card = @card.deck.cards.sample
-    redirect "/cards/#{@card.id}?alert=#{@alert}"
-
-  else
-    @alert = "#{params[:answer]} is incorrect. Shame on you and your family."
-  end
+  @alert = AlertCreator.translate(params[:alert], '<br />')
 
   erb :cards
+end
+
+post '/cards/:id' do
+  @card = Card.find(params[:id])
+
+  if params[:answer] == @card.answer
+    alert_params[:result] = :right
+    @alert = AlertCreator.create(:answer, alert_params).message
+    @card = Card.all.sample
+  # Else, make a new alert to say it is incorrect.
+  else
+    alert_params[:result] = :wrong
+    @alert = AlertCreator.create(:answer, alert_params).message
+  end
+  redirect "/cards/#{@card.id}?alert=#{@alert}"
 end

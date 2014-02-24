@@ -3,7 +3,7 @@
   <h2><%= @alert %></h2>
 <% end %>
 <div class="container">
-  <form action="/cards/<%=@card.id%>" method="get">
+  <form action="/cards/<%=@card.id%>" method="post">
     Here's the next question<br>
     Question: <br>
     <input type="text" value= "<%=@card.question%>" readonly="readonly">
