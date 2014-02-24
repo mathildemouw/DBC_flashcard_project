@@ -1,4 +1,7 @@
 <h2>Sign up:</h2>
+<% if @alert %>
+  <h2><%= @alert %></h2>
+<% end %>
 <div class="container">
   <form action="/users" method="post">
     <div class="form-group">

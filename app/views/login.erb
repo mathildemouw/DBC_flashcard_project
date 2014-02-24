@@ -1,7 +1,9 @@
 
 <div class="form-group">
   <h2>Login:</h2>
-
+  <% if @alert %>
+  <h3><%= @alert %></h3>
+  <% end %>
   <form action='/users/login' method='post'>
       Username: <br><input type='text' name='name'><br><br>
       Password: <br><input type='password' name='password'><br><br>
