@@ -6,8 +6,10 @@ get '/users/new' do
 end
 
 post '/users' do
-  User.create(name: params[:name], email: params[:email], password: params[:password])
-  redirect '/'
+  @user = User.create(params)
+  @alert = AlertCreator.create(:create_user, @user, params).message
+
+  redirect "/#{ 'users/new?alert=' + @alert if @alert}"
 end
 
 get '/users/login' do
@@ -17,16 +19,11 @@ end
 
 post '/users/login' do
   @user = User.find_by_name(params[:name])
+  redirect '/users/login' if @user.nil?
 
-  if @user.nil?
-    redirect '/users/login'
-  elsif params[:password] == @user.password
-    session[:id] = @user.id
-  else
-    @alert_query = "?alert=#{AlertCreator.create(:login, {username: @user.name}).message}"
-  end
-
-  redirect "/users/login#{@alert_query}"
+  @alert = AlertCreator.create(:login, @user, params).message
+  session[:id] = @user.id unless @alert
+  redirect "/#{ 'users/login?alert=' + @alert if @alert }"
 end
 
 post '/users/logout' do

@@ -8,15 +8,6 @@ end
 
 post '/cards/:id' do
   @card = Card.find(params[:id])
-
-  if params[:answer] == @card.answer
-    alert_params[:result] = :right
-    @alert = AlertCreator.create(:answer, alert_params).message
-    @card = Card.all.sample
-  # Else, make a new alert to say it is incorrect.
-  else
-    alert_params[:result] = :wrong
-    @alert = AlertCreator.create(:answer, alert_params).message
-  end
+  @alert = AlertCreator.create(:answer, {answer: params[:answer]}).message
   redirect "/cards/#{@card.id}?alert=#{@alert}"
 end

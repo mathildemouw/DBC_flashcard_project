@@ -1,12 +1,14 @@
+require 'sinatra/base'
 module AlertCreator
   DELIMITER = "-|-"
-  def self.create(type, args = {})
+  def self.create(type, model_instance, params = {})
     case type
-    when :edit then return EditAlert.new(args)
-    when :create then return CreateAlert.new(args)
-    when :answer then return AnswerAlert.new(args)
-    when :login then return LoginAlert.new(args)
-    else Alert.new(args)
+    when :edit then return EditAlert.new(model_instance)
+    when :create then return CreateAlert.new(model_instance)
+    when :answer then return AnswerAlert.new(model_instance, params)
+    when :login then return LoginAlert.new(model_instance, params)
+    when :create_user then return UserCreationAlert.new(model_instance, params)
+    else Alert.new(params)
     end
   end
 
@@ -17,8 +19,8 @@ module AlertCreator
 
   class Alert
     attr_reader :message
-    def initialize args
-      @model_instance = args[:model_instance]
+    def initialize model_instance
+      @model_instance = model_instance
       @message = "ERRORS"
       build_message
     end
@@ -46,17 +48,37 @@ module AlertCreator
   end
 
   class AnswerAlert < Alert
-    def initialize args
-      @message = "The answer is #{args[:result]}!#{DELIMITER} #{args[:question]} -> #{args[:answer]}"
+    def initialize card, params
+      answer = params[:answer]
+      if answer == card.answer
+        result = "right"
+      else
+        result = "wrong"
+      end
+      @message = "The answer is #{result}!#{DELIMITER} #{card.question} -> #{answer}"
     end
   end
 
   class LoginAlert < Alert
-    def initialize args
-      @message = "The info you provided for '#{args[:username]}' is not valid"
+    def initialize user, params
+      if user.password = params[:password]
+        return false
+      end
+      @message = "The info you provided for '#{user.name}' is not valid" if user.password = params[:password]
     end
   end
 
+  class UserCreationAlert < Alert
+    def initialize user, params
+      return false if user.valid?
+      super user
+    end
+
+    def build_message
+      @message="The info you entered are not valid for user creation"
+      super
+    end
+  end
 end
 
 helpers AlertCreator
