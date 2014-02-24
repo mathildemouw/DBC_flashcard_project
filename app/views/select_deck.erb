@@ -2,6 +2,7 @@
   <h1>Please select a deck to play with</h1>
   <br>
 
-  <a href="/cards">HA! I'm the only deck sucker.</a>
-
+  <%@decks.each do |deck|  %>
+    <a href=<%="/deck/#{deck.id}"%>><%=deck.name%></a><br>
+  <%end %>
 </div>
