@@ -20,10 +20,8 @@ module AlertCreator
     end
 
     def build_message
-      @model_instance.errors.messages.each do |name, error_messages|
-        error_messages.each do |error_message|
-          @message << "#{DELIMITER} #{name.capitalize}: #{error_message.capitalize}"
-        end
+      @model_instance.errors.full_messages.each do |error_message|
+        @message << "#{DELIMITER} #{error_message}"
       end
     end
   end
