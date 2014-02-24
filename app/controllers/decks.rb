@@ -5,8 +5,10 @@ get '/select_deck' do
 end
 
 get '/deck/:deck_id' do
-  @cards = Deck.find(params[:deck_id]).cards
+  @deck = Deck.find(params[:deck_id])
+  @cards = @deck.cards
   @card = @cards.sample
+  @deck.scores.find_by_user_id(current_user.id) || Score.create!(user_id: current_user.id, deck_id: @deck.id)
   redirect to "/deck/#{params[:deck_id]}/cards/"
 end
 
@@ -30,6 +32,11 @@ end
 post '/deck/:deck_id/cards/:id' do
   redirect "/deck/#{params[:deck_id]}/cards" if params[:next]
   @card = Card.find(params[:id])
-  @alert = AlertCreator.create(:answer, @card, params).message
-  redirect "/deck/#{params[:deck_id]}/cards/#{@card.id.to_s + '?alert=' + @alert if @alert}"
+  @alert = AlertCreator.create(:answer, @card, params)
+  if @alert.result == 'right'
+    @score = current_user.scores.find_by_deck_id(params[:deck_id])
+    @score.correct_answers += 1
+    @score.save!
+  end
+  redirect "/deck/#{params[:deck_id]}/cards/#{@card.id.to_s + '?alert=' + @alert.message if @alert.message}"
 end

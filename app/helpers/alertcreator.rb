@@ -18,7 +18,7 @@ module AlertCreator
   end
 
   class Alert
-    attr_reader :message
+    attr_reader :message, :result
     def initialize model_instance
       @model_instance = model_instance
       @message = "ERRORS"
@@ -49,12 +49,11 @@ module AlertCreator
 
   class AnswerAlert < Alert
     def initialize card, params
-      p card
       answer = params["answer"]
       if answer == card.answer
-        result = "right"
+        @result = "right"
       else
-        result = "wrong"
+        @result = "wrong"
       end
       @message = "The answer is #{result}!#{DELIMITER} #{card.question} -> #{answer}"
     end

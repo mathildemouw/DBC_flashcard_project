@@ -8,6 +8,4 @@ end
 
 post '/cards/:id' do
   @card = Card.find(params[:id])
-  @alert = AlertCreator.create(:answer, @card, params).message
-  redirect "/cards/#{@card.id.to_s + '?alert=' + @alert if @alert}"
 end
